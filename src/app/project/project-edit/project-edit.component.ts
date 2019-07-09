@@ -6,6 +6,7 @@ import { ProjectsProvider, IProject, IssuesProvider, IIssue } from 'communicatio
 
 
 
+
 @Component({
   selector: 'app-project-edit',
   templateUrl: './project-edit.component.html',
@@ -23,9 +24,9 @@ export class ProjectEditComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute,
-              private router: Router,
-              private projectsProvider: ProjectsProvider,
-              private issuesProvider: IssuesProvider) { this.initForm(); }
+    private router: Router,
+    private projectsProvider: ProjectsProvider,
+    private issuesProvider: IssuesProvider) { this.initForm(); }
 
 
   ngOnInit() {
@@ -39,31 +40,32 @@ export class ProjectEditComponent implements OnInit {
             (res: IProject) => {
               this.project = res;
               console.log('project onInit', this.project);
-            }
+            },
           );
-
-        this.issuesProvider.getItems(this.id)
-          .subscribe(
-            (res: IIssue[]) => {
-              this.issues = res;
-            }
-          );
-        this.initForm();
       }
     );
+
+    this.issuesProvider.getItems(this.id)
+      .subscribe(
+        (res: IIssue[]) => {
+          this.issues = res;
+        }
+      );
+
+    this.initForm();
+
+
   }
 
   onSubmit() {
     console.log(this.projectForm);
+
+    const newProject = { ...this.project, ...this.projectForm.value };
+
     if (this.editMode) {
-      this.projectsProvider.getItems()
-        .subscribe(
-          (res: IProject[]) => { this.projectsArray = res; }
-        );
-      this.project = this.projectsArray(this.id);
-      this.projectsProvider.updateItem(this.project);
+      this.projectsProvider.updateItem(newProject).subscribe(console.log);
     } else {
-      this.projectsProvider.createItem(this.projectForm.value);
+      this.projectsProvider.createItem(newProject).subscribe(console.log);
     }
     this.onCancel();
   }
@@ -89,47 +91,43 @@ export class ProjectEditComponent implements OnInit {
   }
 
   private initForm() {
-    let projectName = '';
-    let projectImage = '';
-    let projectDescription = '';
-    // tslint:disable-next-line: prefer-const
-    let projectIssues = new FormArray([]);
+    // let projectName = '';
+    // let projectImage = '';
+    // let projectDescription = '';
+    // // tslint:disable-next-line: prefer-const
+    // let projectIssues = new FormArray([]);
 
 
     if (this.editMode) {
       this.projectsProvider.getItemById(this.id)
-        .subscribe(
-          (res: IProject) => {
-            this.project = res;
-            console.log('if EditMode project', this.project);
-            projectName = this.project.name;
-            projectImage = this.project.image;
-            projectDescription = this.project['description'];
+        .subscribe((project: IProject) => {
+          this.project = project;
+          console.log('if EditMode project', this.project);
 
-            if (this.issues) {
+          this.projectForm.patchValue(project);
 
-              // tslint:disable-next-line: prefer-const
-              for (let issue of this.issues) {
-                projectIssues.push(
-                  new FormGroup({
-                    'name': new FormControl(issue.name, Validators.required)
-                  })
-                );
-              }
-            }
-          }
+
+          // if (this.issues) {
+
+          //   // tslint:disable-next-line: prefer-const
+          //   for (let issue of this.issues) {
+          //     projectIssues.push(
+          //       new FormGroup({
+          //         'name': new FormControl(issue.name, Validators.required)
+          //       })
+          //     );
+          //   }
+
+          // }
+        }
         );
     }
 
     this.projectForm = new FormGroup({
 
-      'name': new FormControl(projectName, Validators.required),
-
-      'image': new FormControl(projectImage, Validators.required),
-
-      'description': new FormControl(projectDescription, Validators.required),
-
-      'issues': projectIssues
+      name: new FormControl('', Validators.required),
+      image: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
     });
 
   }
