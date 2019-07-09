@@ -1,0 +1,32 @@
+<div class="row d-flex flex-column">
+  <div class="col-md-8 d-flex align-content-center" style="margin: 0 auto; padding-top: 30px;">
+    <div class="mr-3">
+      <img [src]="project.image" alt="{{ project.image }}" class="img-responsive" style="max-height: 120px;">
+    </div>
+    <div class="mr-auto">
+      <h1 class="list-group-item-heading">{{ project.name }} </h1>
+      <p class="list-group-item-text">{{ project.description }}</p>
+    </div>
+    <div class="d-flex align-self-center">
+      <button type="button" class="btn btn-primary mr-3" (click)="onEditProject()">Edit Project</button>
+      <button type="button" class="btn btn-danger" (click)="onDeleteProject()">Delete Project</button>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-8 mx-auto">
+      <ul class="list-group">
+        <li class="list-group-item d-flex align-content-center" *ngFor="let issue of project.issues; let i = index">
+          <h4 [ngStyle]="{ 'color' : (issue.inProgress)? '#6e6b6b' : '#008000' }" (click)="onIssueDone(i)"
+            style="margin-right: 30px;"><i class="fa fa-check-circle"></i></h4>
+          <div>
+            <h4 style="cursor: pointer" [routerLink]="['issue', i ]" routerLinkActive="active">{{ issue.name }}</h4>
+            <p>{{ issue.description }}</p>
+          </div>
+          <div class="col-md-2"><span class="btn btn-danger" (click)="onDeleteProject(index)">X</span></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>

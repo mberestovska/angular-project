@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ILang, TranslateService } from '../translate';
 
@@ -6,7 +6,7 @@ import { ILang, TranslateService } from '../translate';
     selector: 'app-home',
     templateUrl: './home.component.html',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
     public langList$: Observable<ILang[]>;
     public currentLang: string;
 

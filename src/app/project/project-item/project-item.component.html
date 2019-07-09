@@ -1,0 +1,22 @@
+<div class="row d-flex align-items-center">
+  <div class="col-md-8">
+    <a class="list-group-item d-flex justify-content-between" style="cursor:pointer"
+    [routerLink]="[index]"
+    routerLinkActive="active">
+    <div class="">
+      <h4 class="list-group-item-heading">{{ project.name }} <span style="color: gray"> Issues : {{ project.issues.length }}</span></h4>
+      <p class="list-group-item-text">{{ project.description }}</p>
+    </div>
+    <span class="">
+      <img 
+      [src]="project.image"
+      alt="{{ project.image }}" 
+      class="img-responsive" 
+      style="max-height: 50px;">
+    </span>
+  </a>
+  </div>
+  <div class="col-md-2"><span class="btn btn-danger" (click)="onDeleteProject(index)">X</span></div>
+</div>
+
+

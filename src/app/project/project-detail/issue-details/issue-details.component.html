@@ -1,0 +1,20 @@
+<div class="row pt-5">
+  <div class="col-md-8 mx-auto d-flex">
+    <h2 class="mr-auto">
+      <span [ngStyle]="{ 'color' : (issue.inProgress)? '#6e6b6b' : '#008000' }" style="margin-right: 30px">
+        <i class="fa fa-check-circle"></i>
+      </span>
+      {{ issue.name }}</h2>
+    <button type="button" class="col-md-1 btn btn-danger" (click)="onDeleteIssue()">Delete</button>
+    <button type="button" class="col-md-1 btn btn-success">Edit</button>
+    <button type="button" class="col-md-1 btn btn-primary">Cancel</button>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-md-8 mx-auto">
+    <h4>Project Id: {{ issue.projectId }}</h4>
+    <p>Created on: {{ issue.created | date }}</p>
+    <p>{{ issue.description }}</p>
+  </div>
+</div>
