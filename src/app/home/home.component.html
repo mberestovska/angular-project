@@ -1,0 +1,11 @@
+<select class="toolbar__lang" (change)="changeLang($event.target.value)">
+  <option *ngFor="let lang of langList$ | async"
+          [value]="lang.code"
+          [selected]="lang.code === currentLang">
+    {{ lang.name }}
+  </option>
+</select>
+
+<h1>{{ "home.title" | translate }}</h1>
+<p>{{ "home.text" | translate }}</p>
+<a routerLink="/not-found">{{ "home.not-found" | translate }}</a>

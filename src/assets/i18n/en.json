@@ -1,0 +1,12 @@
+{
+  "home": {
+    "title": "Home page",
+    "text": "Angular template",
+    "not-found": "Not found"
+  },
+  "not-found": {
+    "title": "Not Found",
+    "text": "Page Not Found",
+    "home": "Home"
+  }
+}
