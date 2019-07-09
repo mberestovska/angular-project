@@ -48,4 +48,12 @@ export class IssueDetailsComponent implements OnInit {
     this.router.navigate(['/projects', this.id - 1]);
   }
 
+  onEditIssue() {
+    this.router.navigate(['edit'], {relativeTo: this.route});
+  }
+
+  onCancelIssue() {
+    this.router.navigate(['../../'], { relativeTo: this.route });
+  }
+
 }

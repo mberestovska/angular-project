@@ -12,6 +12,7 @@ export class ProjectDetailComponent implements OnInit {
   project: IProject;
   id: number;
   issue: IIssue;
+  isFilterApplied = false;
   
 
   constructor(private route: ActivatedRoute,
@@ -38,6 +39,11 @@ export class ProjectDetailComponent implements OnInit {
         );
       }
     );
+  }
+
+  onApplyFilter() {
+    this.isFilterApplied = !this.isFilterApplied;
+    console.log(this.isFilterApplied);
   }
 
   onEditProject() {

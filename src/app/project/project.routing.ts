@@ -3,6 +3,7 @@ import { ProjectComponent } from './project.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { ProjectEditComponent } from './project-edit/project-edit.component';
 import { IssueDetailsComponent } from './project-detail/issue-details/issue-details.component';
+import { IssueEditComponent } from './project-detail/issue-details/issue-edit/issue-edit.component';
 
 const routes: Routes = [
     {
@@ -15,9 +16,6 @@ const routes: Routes = [
                 override: true,
             },
         },
-        // children: [
-        //     {path: ':id', component: ProjectDetailComponent}
-        // ],
     },
     {
         path: 'projects/new',
@@ -35,6 +33,10 @@ const routes: Routes = [
     {
         path: 'projects/:id/issue/:index',
         component: IssueDetailsComponent,
+    },
+    {
+        path: 'projects/:id/issue/:index/edit',
+        component: IssueEditComponent,
     },
 
 

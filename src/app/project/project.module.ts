@@ -11,12 +11,32 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { ProjectEditComponent } from './project-edit/project-edit.component';
 import { IssueDetailsComponent } from './project-detail/issue-details/issue-details.component';
+import { IssueEditComponent } from './project-detail/issue-details/issue-edit/issue-edit.component';
+import { ProgressPipe } from './pipe/progress.pipe';
+import { NamePipe } from './pipe/name.pipe';
 
 
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, ProjectRoutes, HttpClientModule, CommunicationModule, NgxPaginationModule ],
-    declarations: [ProjectComponent, ProjectItemComponent, ProjectDetailComponent, ProjectEditComponent, IssueDetailsComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ProjectRoutes,
+        HttpClientModule,
+        CommunicationModule,
+        NgxPaginationModule,
+    ],
+    declarations: [
+        ProjectComponent,
+        ProjectItemComponent,
+        ProjectDetailComponent,
+        ProjectEditComponent,
+        IssueDetailsComponent,
+        IssueEditComponent,
+        ProgressPipe,
+        NamePipe
+    ],
 })
 export class ProjectModule {
 }
