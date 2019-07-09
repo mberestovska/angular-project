@@ -19,13 +19,13 @@ export class ProjectEditComponent implements OnInit {
   projectForm: FormGroup;
   issues: IIssue[];
   issue: IIssue;
- 
-  
+
+
 
   constructor(private route: ActivatedRoute,
-    private router: Router,
-    private projectsProvider: ProjectsProvider,
-    private issuesProvider: IssuesProvider) { this.initForm(); }
+              private router: Router,
+              private projectsProvider: ProjectsProvider,
+              private issuesProvider: IssuesProvider) { this.initForm(); }
 
 
   ngOnInit() {
@@ -55,19 +55,17 @@ export class ProjectEditComponent implements OnInit {
 
   onSubmit() {
     console.log(this.projectForm);
-    // if (this.editMode) {
-    //   this.projectsProvider.getItems()
-    //     .subscribe(
-    //       (res: IProject[]) => { this.projectsArray = res; }
-    //     );
-    //   // tslint:disable-next-line: prefer-const
-    //   this.project = this.projectsArray(this.id);
-    //   this.projectsProvider.updateItem(this.project);
-    //   // this.projectsProvider.updateItem(this.id, this.projectForm.value);
-    // } else {
-    //   this.projectsProvider.createItem(this.projectForm.value);
-    // }
-    // this.onCancel();
+    if (this.editMode) {
+      this.projectsProvider.getItems()
+        .subscribe(
+          (res: IProject[]) => { this.projectsArray = res; }
+        );
+      this.project = this.projectsArray(this.id);
+      this.projectsProvider.updateItem(this.project);
+    } else {
+      this.projectsProvider.createItem(this.projectForm.value);
+    }
+    this.onCancel();
   }
 
   onCancel() {
@@ -80,15 +78,14 @@ export class ProjectEditComponent implements OnInit {
 
   onAddIssue() {
     this.issuesProvider.createItem(this.issue);
-    console.log('1 ', this.issues);
     // tslint:disable-next-line: no-angle-bracket-type-assertion
-    (<FormArray> this.projectForm.get('issues')).push(
+    (<FormArray>this.projectForm.get('issues')).push(
       new FormGroup({
         'name': new FormControl(null, Validators.required)
       })
     );
-    console.log('2 ', this.issues);
-    
+    console.log('updated issues ', this.issues);
+
   }
 
   private initForm() {
@@ -97,12 +94,9 @@ export class ProjectEditComponent implements OnInit {
     let projectDescription = '';
     // tslint:disable-next-line: prefer-const
     let projectIssues = new FormArray([]);
-  
+
 
     if (this.editMode) {
-      // tslint:disable-next-line: prefer-const
-      // let project;
-      
       this.projectsProvider.getItemById(this.id)
         .subscribe(
           (res: IProject) => {
@@ -126,7 +120,7 @@ export class ProjectEditComponent implements OnInit {
           }
         );
     }
-  
+
     this.projectForm = new FormGroup({
 
       'name': new FormControl(projectName, Validators.required),
@@ -137,9 +131,9 @@ export class ProjectEditComponent implements OnInit {
 
       'issues': projectIssues
     });
-  
+
   }
-  
+
 
 
 }
