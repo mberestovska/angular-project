@@ -7,7 +7,7 @@
         <div class="row">
           <div class="col-md-8 mx-auto d-flex justify-content-center">
             
-                <button type="submit" class="btn btn-success" [disabled]="!issueForm.valid" >Save</button>
+                <button type="submit" class="btn btn-success"  [disabled]="issueForm.invalid">Save</button>
                 <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
             
           </div>
@@ -16,7 +16,7 @@
           <div class="col-md-8 mx-auto">
             <div class="form-group">
               <label for="name">Name</label>
-              <input type="text" id="name" class="form-control" [formControlName]="'issueName'" required #IssueName>
+              <input type="text" id="name" class="form-control" [formControlName]="'name'" required #issueName>
             </div>
           </div>
         </div>
@@ -26,7 +26,7 @@
           <div class="col-md-8 mx-auto">
             <div class="form-group">
               <label for="description">Description</label>
-              <textarea type="text" id="description" class="form-control" rows="6" formControlName="issueDescription" required #IssueDescription></textarea>
+              <textarea type="text" id="description" class="form-control" rows="6" formControlName="description" required #issueDescription></textarea>
             </div>
           </div>
         </div>

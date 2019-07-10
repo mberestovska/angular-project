@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { IProject, IIssue, ProjectsProvider, IssuesProvider } from 'communication';
 
 @Component({
@@ -43,6 +43,7 @@ export class IssueEditComponent implements OnInit {
       .subscribe(
         (res: IIssue) => {
           this.issue = res;
+          console.log('issue onInit', this.issue);
         }
       );
 
@@ -50,11 +51,11 @@ export class IssueEditComponent implements OnInit {
 
   }
 
-  onSubmit() {
+  onIssueSubmit() {
     console.log(this.issueForm);
 
     const newIssue = { ...this.issue, ...this.issueForm.value };
-
+    console.log('newIssue', newIssue);
     if (this.editMode) {
       this.issuesProvider.updateItem(newIssue).subscribe(console.log);
     } else {
@@ -78,7 +79,9 @@ export class IssueEditComponent implements OnInit {
       this.issuesProvider.getItemById(this.index, this.id).subscribe(
         (issue: IIssue) => {
           this.issue = issue;
+          console.log('issue from initForm', this.issue);
           this.issueForm.patchValue(issue);
+          console.log(this.issueForm.value);
         }
       );
       
@@ -86,8 +89,8 @@ export class IssueEditComponent implements OnInit {
 
     this.issueForm = new FormGroup({
 
-      issueName: new FormControl('', Validators.required),
-      IssueDescription: new FormControl('', Validators.required),
+      name: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
     });
 
   }

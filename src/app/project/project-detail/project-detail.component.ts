@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 import { IProject, ProjectsProvider, IssuesProvider, IIssue } from 'communication';
+
 
 @Component({
   selector: 'app-project-detail',
@@ -10,17 +12,21 @@ import { IProject, ProjectsProvider, IssuesProvider, IIssue } from 'communicatio
 })
 export class ProjectDetailComponent implements OnInit {
   project: IProject;
+  projectsArray: any;
   id: number;
   issue: IIssue;
   isFilterApplied = false;
-  
+  userInput: string;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private projectsProvider: ProjectsProvider, 
-              private issuesProvider: IssuesProvider) { }
+              private issuesProvider: IssuesProvider,
+              private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    this.spinner.show();
+
     this.route.params.subscribe(
       (params: Params) => {
         this.id = +params['id'] + 1;
@@ -33,6 +39,7 @@ export class ProjectDetailComponent implements OnInit {
               .subscribe(
                 (issues: []) => {
                   this.project.issues = issues;
+                  this.spinner.hide();
                 }
               );
           }
@@ -47,11 +54,15 @@ export class ProjectDetailComponent implements OnInit {
   }
 
   onEditProject() {
-    this.router.navigate(['edit'], {relativeTo: this.route});
+    this.router.navigate(['edit'], { relativeTo: this.route });
   }
 
   onDeleteProject() {
     this.projectsProvider.deleteItem(this.id);
+    this.router.navigate(['/projects']);
+  }
+
+  onGoBack() {
     this.router.navigate(['/projects']);
   }
 
@@ -63,15 +74,19 @@ export class ProjectDetailComponent implements OnInit {
         console.log(this.issue);
         this.issue.inProgress = !this.issue.inProgress;
       }
-    );  
-  } 
+    );
+  }
 
   onDeleteIssue(i: number) {
-    this.issuesProvider.deleteItem(i, this.id).subscribe(
-      (res: boolean) => {
-        console.log(res);
-      } 
-    );
+    console.log(i);
+    if (window.confirm('Are sure you want to delete this item?')) {
+      this.issuesProvider.deleteItem(i, this.id).subscribe(
+        (res: boolean) => {
+          console.log(res);
+        }
+      );
+    }
+
   }
  
 }

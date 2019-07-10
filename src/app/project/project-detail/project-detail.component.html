@@ -1,5 +1,8 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.9)" size="medium" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
 <div class="row d-flex flex-column">
-  <div class="col-md-8 d-flex align-content-center" style="margin: 0 auto; padding-top: 30px;">
+  <div class="col-md-8 d-flex align-content-center mx-auto pt-5">
     <div class="mr-3">
       <img [src]="project.image" alt="{{ project.image }}" class="img-responsive" style="max-height: 120px;">
     </div>
@@ -9,14 +12,15 @@
     </div>
     <div class="d-flex align-self-center">
       <button type="button" class="btn btn-primary mr-3" (click)="onEditProject()">Edit Project</button>
-      <button type="button" class="btn btn-danger" (click)="onDeleteProject()">Delete Project</button>
+      <button type="button" class="btn btn-danger mr-3" (click)="onDeleteProject()">Delete Project</button>
+      <button type="button" class="btn btn-success" (click)="onGoBack()">Back</button>
     </div>
   </div>
 
   <div class="row mt-5">
     <div class="col-md-8 mx-auto">
-      <label for="check" style="font-size: 18px; margin-right: 10px;" >Display issues - Done</label>
-      <input type="checkbox" id="check" (click)="onApplyFilter()"><span> </span>
+      <label for="check" class="mr-3" style="font-size: 18px;" >Display issues - Done</label>
+      <input type="checkbox" id="check" (click)="onApplyFilter()">
       <input type="text" class="form-control" [(ngModel)]="userInput"/>
     </div>
   </div>
@@ -27,13 +31,13 @@
         <li class="list-group-item d-flex align-content-center"
         *ngFor="let issue of (isFilterApplied ? (project.issues | progress) : (project.issues | name:userInput));
           let i = index">
-          <h4 [ngStyle]="{ 'color' : (issue.inProgress)? '#6e6b6b' : '#008000' }" (click)="onIssueDone(i)"
-            style="margin-right: 30px;"><i class="fa fa-check-circle"></i></h4>
+          <h4 class="mr-5" [ngStyle]="{ 'color' : (issue.inProgress)? '#6e6b6b' : '#008000' }"
+          (click)="onIssueDone(i)"><i class="fa fa-check-circle"></i></h4>
           <div>
             <h4 style="cursor: pointer" [routerLink]="['issue', i ]" routerLinkActive="active">{{ issue.name }}</h4>
             <p>{{ issue.description }}</p>
           </div>
-          <div class="col-md-2"><span class="btn btn-danger" (click)="onDeleteProject(index)">X</span></div>
+          <div class="col-md-2"><span class="btn btn-danger" (click)="onDeleteIssue(i)">X</span></div>
         </li>
       </ul>
     </div>

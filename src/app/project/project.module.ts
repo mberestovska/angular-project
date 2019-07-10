@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { ProjectComponent } from './project.component';
 import { ProjectRoutes } from './project.routing';
@@ -26,6 +27,7 @@ import { NamePipe } from './pipe/name.pipe';
         HttpClientModule,
         CommunicationModule,
         NgxPaginationModule,
+        NgxSpinnerModule,
     ],
     declarations: [
         ProjectComponent,

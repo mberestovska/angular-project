@@ -24,9 +24,9 @@ export class ProjectEditComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute,
-    private router: Router,
-    private projectsProvider: ProjectsProvider,
-    private issuesProvider: IssuesProvider) { this.initForm(); }
+              private router: Router,
+              private projectsProvider: ProjectsProvider,
+              private issuesProvider: IssuesProvider) { this.initForm(); }
 
 
   ngOnInit() {
@@ -53,7 +53,8 @@ export class ProjectEditComponent implements OnInit {
       );
 
     this.initForm();
-
+    
+    console.log('isValid', this.projectForm.valid);
 
   }
 
@@ -91,12 +92,6 @@ export class ProjectEditComponent implements OnInit {
   }
 
   private initForm() {
-    // let projectName = '';
-    // let projectImage = '';
-    // let projectDescription = '';
-    // // tslint:disable-next-line: prefer-const
-    // let projectIssues = new FormArray([]);
-
 
     if (this.editMode) {
       this.projectsProvider.getItemById(this.id)

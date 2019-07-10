@@ -4,7 +4,7 @@
         <div class="row">
           <div class="col-md-8 mx-auto d-flex justify-content-center">
             
-                <button type="submit" class="btn btn-success" [disabled]="!projectForm.valid" >Save</button>
+                <button type="submit" class="btn btn-success" [disabled]="projectForm.invalid">Save</button>
                 <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
             
           </div>
@@ -13,7 +13,10 @@
           <div class="col-md-8 mx-auto">
             <div class="form-group">
               <label for="name">Name</label>
-              <input type="text" id="name" class="form-control" [formControlName]="'name'" required #name>
+              <input type="text" id="name" class="form-control"
+              [formControlName]="'name'"  required #name
+              >
+              <span *ngIf='projectForm.get("name").invalid && projectForm.get("name").touched' style="color: red;">Please enter a name !!!</span>
             </div>
           </div>
         </div>
@@ -22,6 +25,7 @@
             <div class="form-group">
               <label for="image">Image URL</label>
               <input type="text" id="image" class="form-control" formControlName="image" required #image>
+              <span *ngIf='projectForm.get("image").invalid && projectForm.get("image").touched' style="color: red;">Please enter an image URL !!!</span>
             </div>
           </div>
         </div>
@@ -34,16 +38,16 @@
           <div class="col-md-8 mx-auto">
             <div class="form-group">
               <label for="description">Description</label>
-              <textarea type="text" id="description" class="form-control" rows="6" formControlName="description" required #description></textarea>
+              <textarea type="text" id="description" class="form-control" rows="6" formControlName="description"  required #description></textarea>
+              <span *ngIf='projectForm.get("description").invalid && projectForm.get("description").touched' style="color: red;">Please enter a description !!!</span>
             </div>
           </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-8 mx-auto" formArrayName="issues">
-            <div class="row"
+            <div class="row mt-3"
             *ngFor="let issuesCtrl of projectForm.get('issues').controls; let i = index"
-            [formGroupName]="i"
-            style="margin-top: 10px">
+            [formGroupName]="i">
               <div class="col-md-6">
                 <input type="text" class="form-control" 
                 formControlName="name">
@@ -59,7 +63,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </form>
     </div>
   </div>

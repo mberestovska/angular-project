@@ -1,3 +1,6 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.9)" size="medium" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
 <div class="container">
   <div class="row">
     <h1>Projects List</h1>
@@ -13,12 +16,13 @@
     <div class="container">
       <div class="row mx-auto">
           <div class="col-md-8 mx-auto">
-              <app-project-item *ngFor="let project of projectsArray | paginate: { itemsPerPage: 7, currentPage: p }; let i = index"
+              <app-project-item *ngFor="let project of projectsArray | paginate: { itemsPerPage: 5, currentPage: p }; let i = index"
               [project] = "project"
               [index] = "i"
               [projectsArray] = "projectsArray"
+              [page] = "p"
               ></app-project-item>
-              <pagination-controls (pageChange)="p = $event"
+              <pagination-controls (pageChange)="p = $event" class="project-component-paginator"
               ></pagination-controls>
              <!-- this is for styling paginator  class="text-center"  -->
             </div>

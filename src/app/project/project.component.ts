@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
-import { ProjectsProvider, IProject, IssuesProvider, IIssue } from '../communication';
+import { ProjectsProvider, IProject, IssuesProvider } from '../communication';
+
 
 
 @Component({
@@ -14,31 +16,25 @@ export class ProjectComponent implements OnInit {
   projectsArray: any;
   subscription: Subscription;
   issuesArray: any;
+  p: number;
 
   constructor(private projectsProvider: ProjectsProvider,
               private issuesProvider: IssuesProvider,
               private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    this.spinner.show();
+
     this.projectsProvider.getItems()
       .subscribe(
         (projects: IProject[]) => {
           this.projectsArray = projects;
           console.log('array from list comp', this.projectsArray);
+          this.spinner.hide();
         }
       );
-     
-    // this doesn't work, trying to get issues in project details  
-    // this.projectsArray.forEach(element => {
-    //   element.issues = this.issuesProvider.getItems(element.id)
-    //     .subscribe(
-    //       (res: []) => {
-    //         this.issuesArray.issues = res;
-    //         console.log('with issues', this.issuesArray);
-    //       }
-    //     );
-    // });
     
   }
 

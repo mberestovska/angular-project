@@ -1,3 +1,11 @@
+.project-component-paginator {
+    font-size: 20px;
+
+}
+.project-component-paginator::ng-deep .ngx-pagination {
+    margin-top: 10px!important;
+}
+
 
 
 

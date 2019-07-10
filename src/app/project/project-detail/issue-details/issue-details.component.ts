@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { ProjectsProvider, IssuesProvider, IProject, IIssue } from 'communication';
 
@@ -41,11 +41,12 @@ export class IssueDetailsComponent implements OnInit {
   }
 
   onDeleteIssue() {
-    // this deletes item but only in this component
-    // this.issuesProvider.deleteItem(this.index, this.id);
+    if (window.confirm('Are you sure you want to delete this issue?')) {
+      // this.project.issues.splice(this.index, 1);
+      this.issuesProvider.deleteItem(this.index, this.id).subscribe(console.log);
+      this.router.navigate(['/projects', this.id - 1]);
+    }
 
-    this.project.issues.splice(this.index, 1);
-    this.router.navigate(['/projects', this.id - 1]);
   }
 
   onEditIssue() {
