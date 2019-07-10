@@ -9,6 +9,7 @@ import { IProject, IIssue, ProjectsProvider, IssuesProvider } from 'communicatio
   styleUrls: ['./issue-edit.component.scss']
 })
 export class IssueEditComponent implements OnInit {
+
   project: IProject;
   id: number;
   index: number;
@@ -22,6 +23,7 @@ export class IssueEditComponent implements OnInit {
     private issuesProvider: IssuesProvider) {  }
 
   ngOnInit() {
+
     this.route.params.subscribe(
       (params: Params) => {
         console.log('params', params);
@@ -52,8 +54,6 @@ export class IssueEditComponent implements OnInit {
   }
 
   onIssueSubmit() {
-    console.log(this.issueForm);
-
     const newIssue = { ...this.issue, ...this.issueForm.value };
     console.log('newIssue', newIssue);
     if (this.editMode) {
@@ -84,7 +84,6 @@ export class IssueEditComponent implements OnInit {
           console.log(this.issueForm.value);
         }
       );
-      
     }
 
     this.issueForm = new FormGroup({

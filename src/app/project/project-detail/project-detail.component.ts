@@ -26,6 +26,9 @@ export class ProjectDetailComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 1500);
 
     this.route.params.subscribe(
       (params: Params) => {
@@ -39,13 +42,13 @@ export class ProjectDetailComponent implements OnInit {
               .subscribe(
                 (issues: []) => {
                   this.project.issues = issues;
-                  this.spinner.hide();
                 }
               );
           }
         );
       }
     );
+
   }
 
   onApplyFilter() {
@@ -67,7 +70,9 @@ export class ProjectDetailComponent implements OnInit {
   }
 
   onIssueDone(index: number) {
+
     const currentIssue = this.project.issues[index];
+
     this.issuesProvider.getItemById(currentIssue['id'], this.id).subscribe(
       (res: IIssue) => {
         this.issue = res;
@@ -78,7 +83,7 @@ export class ProjectDetailComponent implements OnInit {
   }
 
   onDeleteIssue(i: number) {
-    console.log(i);
+
     if (window.confirm('Are sure you want to delete this item?')) {
       this.issuesProvider.deleteItem(i, this.id).subscribe(
         (res: boolean) => {

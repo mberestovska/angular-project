@@ -5,14 +5,14 @@ import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { ProjectsProvider, IProject, IssuesProvider, IIssue } from 'communication';
 
 
-
-
 @Component({
   selector: 'app-project-edit',
   templateUrl: './project-edit.component.html',
   styleUrls: ['./project-edit.component.scss']
 })
+
 export class ProjectEditComponent implements OnInit {
+  
   projectsArray: any;
   project: IProject;
   id: number;
@@ -21,8 +21,6 @@ export class ProjectEditComponent implements OnInit {
   issues: IIssue[];
   issue: IIssue;
 
-
-
   constructor(private route: ActivatedRoute,
               private router: Router,
               private projectsProvider: ProjectsProvider,
@@ -30,6 +28,7 @@ export class ProjectEditComponent implements OnInit {
 
 
   ngOnInit() {
+
     this.route.params.subscribe(
       (params: Params) => {
         this.id = +params['id'] + 1;
@@ -45,12 +44,11 @@ export class ProjectEditComponent implements OnInit {
       }
     );
 
-    this.issuesProvider.getItems(this.id)
-      .subscribe(
-        (res: IIssue[]) => {
-          this.issues = res;
-        }
-      );
+    this.issuesProvider.getItems(this.id).subscribe(
+      (res: IIssue[]) => {
+      this.issues = res;
+      }
+    );
 
     this.initForm();
     
@@ -98,22 +96,9 @@ export class ProjectEditComponent implements OnInit {
         .subscribe((project: IProject) => {
           this.project = project;
           console.log('if EditMode project', this.project);
-
+          
           this.projectForm.patchValue(project);
 
-
-          // if (this.issues) {
-
-          //   // tslint:disable-next-line: prefer-const
-          //   for (let issue of this.issues) {
-          //     projectIssues.push(
-          //       new FormGroup({
-          //         'name': new FormControl(issue.name, Validators.required)
-          //       })
-          //     );
-          //   }
-
-          // }
         }
         );
     }

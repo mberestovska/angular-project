@@ -19,6 +19,7 @@ export class IssueDetailsComponent implements OnInit {
               private issuesProvider: IssuesProvider) { }
 
   ngOnInit() {
+
     this.route.params.subscribe(
       (params: Params) => {
         this.id = +params['id'] + 1;
@@ -38,9 +39,11 @@ export class IssueDetailsComponent implements OnInit {
         );
       }
     );
+
   }
 
   onDeleteIssue() {
+    
     if (window.confirm('Are you sure you want to delete this issue?')) {
       // this.project.issues.splice(this.index, 1);
       this.issuesProvider.deleteItem(this.index, this.id).subscribe(console.log);

@@ -9,13 +9,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./project-item.component.scss']
 })
 export class ProjectItemComponent implements OnInit {
+
   @Input() project: IProject;
   @Input() index: number;
   @Input() projectsArray: IProject[];
   @Input() page: number;
 
   constructor(private projectsProvider: ProjectsProvider,
-    private router: Router) { }
+              private router: Router) { }
 
   ngOnInit() {
     this.checkPageNumber(this.page);
@@ -23,6 +24,7 @@ export class ProjectItemComponent implements OnInit {
 
   onDeleteProject(index: number) {
     let id, currentIndex;
+
     if (this.page > 1) {
       // 5 here is the number of items per page
       currentIndex = ((this.page - 1 ) * 5) + index;
@@ -31,13 +33,12 @@ export class ProjectItemComponent implements OnInit {
     id = this.projectsArray[currentIndex].id;
 
     if (window.confirm('Are sure you want to delete ' + this.project.name + '?')) {
-      // put your delete method logic here
       console.log(id);
-    this.projectsProvider.deleteItem(id).subscribe(console.log);
-    console.log('on Delete Project clicked', id);
-    this.projectsArray.splice(index, 1);
-    console.log('new array', this.projectsArray);
-    this.router.navigate(['/projects']);
+      this.projectsProvider.deleteItem(id).subscribe(console.log);
+      console.log('on Delete Project clicked', id);
+      this.projectsArray.splice(index, 1);
+      console.log('new array', this.projectsArray);
+      this.router.navigate(['/projects']);
     }
     
   }

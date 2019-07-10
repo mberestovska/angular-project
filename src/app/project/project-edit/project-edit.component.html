@@ -16,7 +16,8 @@
               <input type="text" id="name" class="form-control"
               [formControlName]="'name'"  required #name
               >
-              <span *ngIf='projectForm.get("name").invalid && projectForm.get("name").touched' style="color: red;">Please enter a name !!!</span>
+              <span *ngIf='projectForm.get("name").invalid && projectForm.get("name").touched'
+              style="color: red;">Please enter a name</span>
             </div>
           </div>
         </div>
@@ -25,45 +26,27 @@
             <div class="form-group">
               <label for="image">Image URL</label>
               <input type="text" id="image" class="form-control" formControlName="image" required #image>
-              <span *ngIf='projectForm.get("image").invalid && projectForm.get("image").touched' style="color: red;">Please enter an image URL !!!</span>
+              <span *ngIf='projectForm.get("image").invalid && projectForm.get("image").touched'
+              style="color: red;">Please enter a valid URL</span>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-8 mx-auto">
-            <img [src]="image.value" class="img-responsive">
+            <img [src]="image.value" class="img-responsive" style=" max-height: 300px;">
           </div>
         </div>
         <div class="row">
           <div class="col-md-8 mx-auto">
             <div class="form-group">
               <label for="description">Description</label>
-              <textarea type="text" id="description" class="form-control" rows="6" formControlName="description"  required #description></textarea>
-              <span *ngIf='projectForm.get("description").invalid && projectForm.get("description").touched' style="color: red;">Please enter a description !!!</span>
+              <textarea type="text" id="description" class="form-control"
+                rows="6" formControlName="description"  required #description></textarea>
+              <span *ngIf='projectForm.get("description").invalid && projectForm.get("description").touched'
+              style="color: red;">Please enter a description</span>
             </div>
           </div>
         </div>
-        <!-- <div class="row">
-          <div class="col-md-8 mx-auto" formArrayName="issues">
-            <div class="row mt-3"
-            *ngFor="let issuesCtrl of projectForm.get('issues').controls; let i = index"
-            [formGroupName]="i">
-              <div class="col-md-6">
-                <input type="text" class="form-control" 
-                formControlName="name">
-              </div>
-              <div class="col-md-2">
-                <button type="button" class="btn btn-danger" (click)="onDeleteIssue(i)">X</button>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-md-12">
-                <button type="button" class="btn btn-success" (click)="onAddIssue()">Add Issue</button>
-              </div>
-            </div>
-          </div>
-        </div> -->
       </form>
     </div>
   </div>

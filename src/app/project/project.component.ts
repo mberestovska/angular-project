@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 
-import { ProjectsProvider, IProject, IssuesProvider } from '../communication';
+import { ProjectsProvider, IProject } from '../communication';
 
 
 
@@ -19,20 +19,21 @@ export class ProjectComponent implements OnInit {
   p: number;
 
   constructor(private projectsProvider: ProjectsProvider,
-              private issuesProvider: IssuesProvider,
               private router: Router,
               private route: ActivatedRoute,
               private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 1500);
 
     this.projectsProvider.getItems()
       .subscribe(
         (projects: IProject[]) => {
           this.projectsArray = projects;
           console.log('array from list comp', this.projectsArray);
-          this.spinner.hide();
         }
       );
     
